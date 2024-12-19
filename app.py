@@ -17,10 +17,12 @@ def generate_puzzle():
         Create an arrow words puzzle with clues and answers arranged in a grid format.
         Return the puzzle as a JSON object with 'grid' and 'clues'.
         """
-        response = openai.ChatCompletion.create(
-            model="gpt-4",
-            messages=[{"role": "system", "content": prompt}]
-        )
+response = openai.Completion.create(
+    model="gpt-4",
+    prompt="Create an arrow words puzzle with clues and answers arranged in a grid format. Return the puzzle as a JSON object with 'grid' and 'clues'.",
+    max_tokens=500,
+    temperature=0.7
+)
         puzzle = response.choices[0].message["content"]
         return jsonify({"success": True, "puzzle": puzzle})
     except Exception as e:
