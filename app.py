@@ -21,26 +21,21 @@ def home():
 @app.route("/generate", methods=["POST"])
 def generate_puzzle():
     try:
-        # Prompt for generating arrow word puzzles
-        messages = [
-            {"role": "system", "content": "You are a helpful assistant that generates arrow word puzzles."},
-            {"role": "user", "content": "Create an arrow words puzzle with clues and answers arranged in a grid format. Return the puzzle as a JSON object with 'grid' (a 2D array) and 'clues' (a list of clues)."}
-        ]
-
-        # OpenAI API call
-        response = openai.ChatCompletion.create(
-            model="gpt-4",
-            messages=messages,
+        prompt = "Create an arrow words puzzle with clues and answers arranged in a grid format. Return the puzzle as a JSON object with 'grid' and 'clues'."
+        
+        response = openai.Completion.create(
+            engine="text-davinci-003",  # Use "engine" for older OpenAI versions
+            prompt=prompt,
             max_tokens=500,
             temperature=0.7
         )
 
-        # Parse the response from OpenAI
-        puzzle = response.choices[0].message["content"].strip()
+        puzzle = response.choices[0].text.strip()
         return jsonify({"success": True, "puzzle": puzzle})
 
     except Exception as e:
         return jsonify({"success": False, "error": str(e)})
+
 
 if __name__ == "__main__":
     app.run(debug=True)
