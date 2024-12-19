@@ -1,11 +1,18 @@
 from flask import Flask, request, jsonify, render_template
 import openai
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 app = Flask(__name__)
 
-# Set your OpenAI API Key as an environment variable or replace below.
-openai.api_key = os.getenv("OPENAI_API_KEY", "sk-vBJ_PZIifKiPrsX5YjnyMWkEFwEn5dwEX3hqt6iepMT3BlbkFJJVtrBjJAxdRktLjBxx1_W5lxZIJSPB30n2mYLM8mMA")
+# Set your OpenAI API Key from environment variable
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
+if not openai.api_key:
+    raise ValueError("OpenAI API key not found! Please set it in the environment variables.")
 
 @app.route("/")
 def home():
