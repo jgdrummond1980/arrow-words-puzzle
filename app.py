@@ -5,7 +5,7 @@ import os
 app = Flask(__name__)
 
 # Set your OpenAI API Key as an environment variable or replace below.
-openai.api_key = os.getenv("OPENAI_API_KEY", "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")
+openai.api_key = os.getenv("OPENAI_API_KEY", "sk-lBZ2dQATfryySthjRpFe3H6ATbIiUiG7z3Y-Md3tvassaF_OKJSz_jZYkzRQd111D732JrCWOST3BlbkFJ8z-8e9bc52jyKNPsH77dN_MmxBenVEttNo9lAfQJZ5arZEWJq2sH-P397B_cg8gktKfD5-qywA")
 
 @app.route("/")
 def home():
